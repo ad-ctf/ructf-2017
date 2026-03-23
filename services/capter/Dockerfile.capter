@@ -1,8 +1,8 @@
-FROM golang:latest
+FROM golang:1.10
 ADD go /go
 WORKDIR /go/src/capter
-RUN go get
-RUN CGO_ENABLED=0 go build
+RUN rm -rf /go/src/github.com && go get github.com/boltdb/bolt
+RUN CGO_ENABLED=0 go build -o /go/bin/capter
 WORKDIR /go/bin
 EXPOSE 1234
 CMD /go/bin/capter
